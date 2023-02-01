@@ -1,88 +1,176 @@
 const inquirer = require("inquirer");
-const template = require("./src/page-template");
-const writeFile = require("./src/write-file");
+const fs = require("fs");
+const path = require("path");
 
-// constructor classes and questions for each employee type
-const { Manager, managerQuestionsArr } = require("./lib/Manager");
-const { Engineer, engineerQuestionsArr } = require("./lib/Engineer");
-const { Intern, internQuestionsArr } = require("./lib/Intern");
+const Employee = require("./lib/Employee");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
 
-// stores all team member objects
-const employeesArr = [];
+const html = require("./dist/index");
+// const myTeam = require("./dist/index.js")
+// let newTeam = "data"
+let allData = [];
 
-const init = () => {
-  managerQuestions();
-};
-// prompts manager questions then creates object from user inputs based on Manager class
-const managerQuestions = () => {
-  inquirer.prompt(managerQuestionsArr).then((answers) => {
-    answers = new Manager(
-      answers.name,
-      answers.id,
-      answers.email,
-      answers.officeNumber
-    );
-    employeesArr.push(answers);
-    return employeePrompt();
+let choiceQuestion = [
+  {
+    type: "list",
+    message: "What is the employee role?",
+    name: "role",
+    choices: ["Engineer", "Intern", "Manager", "Employee", "none"],
+  },
+];
+//General profile questions
+let employeeQuestions = [
+  {
+    type: "input",
+    message: "what is the employee's name?",
+    name: "employeeName",
+  },
+  {
+    type: "input",
+    message: "what is the employee's id?",
+    name: "id",
+  },
+  {
+    type: "input",
+    message: "what is the employee's email?",
+    name: "email",
+  },
+];
+
+//additional role questions
+
+let managerQuestions = [
+  {
+    type: "input",
+    message: "what is the managers office number?",
+    name: "officeNumber",
+  },
+];
+let engineerQuestions = [
+  {
+    type: "input",
+    message: "what is the engineer github?",
+    name: "github",
+  },
+];
+let internQuestions = [
+  {
+    type: "input",
+    message: "what is the intern's school?",
+    name: "school",
+  },
+];
+// Array of questions to select employees roles
+function init() {
+  inquirer.prompt([...choiceQuestion]).then((inputResponses) => {
+    if (inputResponses.role == "Engineer") {
+      askEngineerQuestions();
+    } else if (inputResponses.role === "Intern") {
+      askInternQuestions();
+    } else if (inputResponses.role === "Manager") {
+      askManagerQuestions();
+    } else if (inputResponses.role == "Employee") {
+      askEmployeeQuestions();
+    } else if (inputResponses.role === "none") {
+      generateHTML();
+    }
   });
-};
-// prompts engineer questions then creates object from user inputs based on Engineer class
-const engineerQuestions = () => {
-  inquirer.prompt(engineerQuestionsArr).then((answers) => {
-    answers = new Engineer(
-      answers.name,
-      answers.id,
-      answers.email,
-      answers.github
-    );
-    employeesArr.push(answers);
-    return employeePrompt();
-  });
-};
-// prompts intern questions then creates object from user inputs based on Intern class
-const internQuestions = () => {
-  inquirer.prompt(internQuestionsArr).then((answers) => {
-    answers = new Intern(
-      answers.name,
-      answers.id,
-      answers.email,
-      answers.school
-    );
-    employeesArr.push(answers);
-    return employeePrompt();
-  });
-};
-// handles prompts
-const employeePrompt = () => {
+}
+
+function askInternQuestions() {
   inquirer
-    .prompt([
-      {
-        type: "list",
-        name: "employeeType",
-        message: "What kind of team member would you like to add?",
-        choices: [
-          { name: "Engineer", value: "addEngineer" },
-          { name: "Intern", value: "addIntern" },
-          { name: "DONE", value: "done" },
-        ],
-      },
-    ])
-    .then((answer) => {
-      // sends correct prompts based on the employee type
-      if (answer.employeeType === "addEngineer") {
-        engineerQuestions();
-      }
-      if (answer.employeeType === "addIntern") {
-        internQuestions();
-      }
-      if (answer.employeeType === "done") {
-        // converts users inputs into HTML
-        let html = template(employeesArr);
-        console.log("...");
-        // creates HTML file
-        writeFile(html);
-      }
+    .prompt([...employeeQuestions, ...internQuestions])
+    .then((inputResponses) => {
+      let myIntern = new Intern(
+        inputResponses.employeeName,
+        inputResponses.id,
+        inputResponses.school,
+        inputResponses.email
+      );
+      allData.push(myIntern);
+      init();
     });
-};
+}
 
+function askEngineerQuestions() {
+  inquirer
+    .prompt([...employeeQuestions, ...engineerQuestions])
+    .then((inputResponses) => {
+      console.log(inputResponses);
+      const myEngineer = new Engineer(
+        inputResponses.employeeName,
+        inputResponses.id,
+        inputResponses.github,
+        inputResponses.email
+      );
+      allData.push(myEngineer);
+      init();
+    });
+}
+function askManagerQuestions() {
+  inquirer
+    .prompt([...employeeQuestions, ...managerQuestions])
+    .then((inputResponses) => {
+      console.log(inputResponses);
+      const myManager = new Manager(
+        inputResponses.employeeName,
+        inputResponses.id,
+        inputResponses.officeNumber,
+        inputResponses.email
+      );
+      allData.push(myManager);
+      init();
+    });
+}
+async function askEmployeeQuestions() {
+  await inquirer.prompt(employeeQuestions).then((inputResponses) => {
+    const myEmployee = new Employee(
+      inputResponses.employeeName,
+      inputResponses.id,
+      inputResponses.email
+    );
+    allData.push(myEmployee);
+    init();
+  });
+}
+
+// module.exports = newTeam;
+function generateHTML() {
+  console.log(allData);
+  //format data to render to html
+  //insert data into html, then return that value
+  //fs.writeFileSync, save as index.html
+
+  // Print the answers into a HTML file which you can deploy
+
+  const html = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    
+  <div class="square">
+  <p class="name"> ${employeeQuestions.name}</p>
+  <p class="position"></p>
+  <p class="id">ID: 12345</p>
+  <p class="room-number">Room: 101</p>
+</div>
+
+
+
+  </body>
+  </html>
+`;
+
+  fs.writeFileSync("answers.html", html);
+  console.log("HTML file generated successfully.");
+}
 init();
