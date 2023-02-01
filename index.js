@@ -1,54 +1,88 @@
 const inquirer = require("inquirer");
-const fs = require("fs");
+const template = require("./src/page-template");
+const writeFile = require("./src/write-file");
 
-// you only use relative path when its a code youve written, inquirer isnt.
+// constructor classes and questions for each employee type
+const { Manager, managerQuestionsArr } = require("./lib/Manager");
+const { Engineer, engineerQuestionsArr } = require("./lib/Engineer");
+const { Intern, internQuestionsArr } = require("./lib/Intern");
 
-// Write the file to this location
-const writeFile = require("");
+// stores all team member objects
+const employeesArr = [];
 
-// Create an array of questions for user input
-const questions = [
-  {
-    type: "input",
-    name: "projectTitle",
-    message: "What is the Project Title?",
-  },
-];
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, userInputs) {
-  let markDown = generateMarkdown(userInputs);
-  console.log(markDown, fileName, userInputs, "hello");
-
-  fs.writeFileSync(fileName, markDown, function () {
-    console.log("README.md has been generated.");
+const init = () => {
+  managerQuestions();
+};
+// prompts manager questions then creates object from user inputs based on Manager class
+const managerQuestions = () => {
+  inquirer.prompt(managerQuestionsArr).then((answers) => {
+    answers = new Manager(
+      answers.name,
+      answers.id,
+      answers.email,
+      answers.officeNumber
+    );
+    employeesArr.push(answers);
+    return employeePrompt();
   });
-}
-// TODO: Create a function to initialize app
-function init() {
+};
+// prompts engineer questions then creates object from user inputs based on Engineer class
+const engineerQuestions = () => {
+  inquirer.prompt(engineerQuestionsArr).then((answers) => {
+    answers = new Engineer(
+      answers.name,
+      answers.id,
+      answers.email,
+      answers.github
+    );
+    employeesArr.push(answers);
+    return employeePrompt();
+  });
+};
+// prompts intern questions then creates object from user inputs based on Intern class
+const internQuestions = () => {
+  inquirer.prompt(internQuestionsArr).then((answers) => {
+    answers = new Intern(
+      answers.name,
+      answers.id,
+      answers.email,
+      answers.school
+    );
+    employeesArr.push(answers);
+    return employeePrompt();
+  });
+};
+// handles prompts
+const employeePrompt = () => {
   inquirer
-    .prompt(questions)
-    // .then means is a promise, where whatever it is ttached to is prompts in this case (answers)
-    // itll wait for the value to come back from the input (yourserlf typing)
-    // after it gets the answer itll continue the code
-    // the .then will wait your question is answered
-
-    .then((answers) => {
-      // pass these answers to generate markdown . js
-      console.log(answers);
-      writeToFile("readMe.md", answers);
-
-      generateMarkdown(answers);
-      console.log(generateMarkdown(answers));
-    })
-    .catch((error) => {
-      if (error.isTtyError) {
-        // Prompt couldn't be rendered in the current environment
-      } else {
-        // Something else went wrong
+    .prompt([
+      {
+        type: "list",
+        name: "employeeType",
+        message: "What kind of team member would you like to add?",
+        choices: [
+          { name: "Engineer", value: "addEngineer" },
+          { name: "Intern", value: "addIntern" },
+          { name: "DONE", value: "done" },
+        ],
+      },
+    ])
+    .then((answer) => {
+      // sends correct prompts based on the employee type
+      if (answer.employeeType === "addEngineer") {
+        engineerQuestions();
+      }
+      if (answer.employeeType === "addIntern") {
+        internQuestions();
+      }
+      if (answer.employeeType === "done") {
+        // converts users inputs into HTML
+        let html = template(employeesArr);
+        console.log("...");
+        // creates HTML file
+        writeFile(html);
       }
     });
-}
+};
 
-// Function call to initialize app
 init();
