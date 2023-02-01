@@ -84,8 +84,8 @@ function askInternQuestions() {
     .prompt([...employeeQuestions, ...internQuestions])
     .then((inputResponses) => {
       let myIntern = new Intern(
-        inputResponses.employeeName,
         inputResponses.id,
+        inputResponses.employeeName,
         inputResponses.school,
         inputResponses.email
       );
@@ -100,8 +100,8 @@ function askEngineerQuestions() {
     .then((inputResponses) => {
       console.log(inputResponses);
       const myEngineer = new Engineer(
-        inputResponses.employeeName,
         inputResponses.id,
+        inputResponses.employeeName,
         inputResponses.github,
         inputResponses.email
       );
@@ -159,13 +159,13 @@ function generateHTML() {
     
   <div class="square">
   <p>MANAGER</p>
-  <p class="name"> Name:${inputResponses.employeeName}</p>
+  <p class="name"> Name:${allData[0].getName()}</p>
   <p class="id">ID: </p>
   <p class="room-number">Room: 101</p>
 
 </div>
 
-
+ 
 
   </body>
   </html>
