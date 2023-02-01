@@ -167,16 +167,7 @@ function generateHTML() {
   <div class="square">
   <p>Engineer</p>
   <p class="name"> Name: ${allData[1].getName()}</p>
-  <p class="id">ID: ${allData[1].getId()}</p>
-  <p class="id">Email: ${allData[1].getEmail()}</p>
-  <p class="school">School: ${allData[1].getSchool()}</p>
 
-  <div class="square">
-  <p>Manager</p>
-  <p class="name"> Name: ${allData[0].getName()}</p>
-  <p class="id">ID: ${allData[0].getId()}</p>
-  <p class="id">Email: ${allData[0].getEmail()}</p>
-  <p class="school">School: ${allData[0].getSchool()}</p>
 
 </div>
 
