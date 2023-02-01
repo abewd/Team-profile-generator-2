@@ -86,8 +86,8 @@ function askInternQuestions() {
       let myIntern = new Intern(
         inputResponses.id,
         inputResponses.employeeName,
-        inputResponses.school,
-        inputResponses.email
+        inputResponses.email,
+        inputResponses.school
       );
       allData.push(myIntern);
       init();
@@ -158,10 +158,11 @@ function generateHTML() {
   <body>
     
   <div class="square">
-  <p>MANAGER</p>
-  <p class="name"> Name:${allData[0].getName()}</p>
-  <p class="id">ID: </p>
-  <p class="room-number">Room: 101</p>
+  <p>Intern</p>
+  <p class="name"> Name: ${allData[0].getName()}</p>
+  <p class="id">ID: ${allData[0].getId()}</p>
+  <p class="id">Email: ${allData[0].getEmail()}</p>
+  <p class="school">School: ${allData[0].getSchool()}</p>
 
 </div>
 
