@@ -158,10 +158,11 @@ function generateHTML() {
   <body>
     
   <div class="square">
-  <p class="name"> ${employeeQuestions.name}</p>
-  <p class="position"></p>
-  <p class="id">ID: 12345</p>
+  <p>MANAGER</p>
+  <p class="name"> Name:${inputResponses.employeeName}</p>
+  <p class="id">ID: </p>
   <p class="room-number">Room: 101</p>
+
 </div>
 
 
