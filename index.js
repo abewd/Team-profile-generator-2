@@ -138,10 +138,15 @@ async function askEmployeeQuestions() {
 }
 
 // install for code here
-
+//
+var generatedHtml = "";
 function forFunction() {
   for (let i = 0; i < allData.length; i++) {
-    console.log(allData[i]);
+    console.log(allData[i].getRole());
+
+    if (allData[i].getRole() === "Engineer") {
+      console.log(allData.getRole());
+    }
   }
 }
 
@@ -165,22 +170,7 @@ function generateHTML() {
     <title>Document</title>
   </head>
   <body>
-    
-  <div class="square">
-  <p>Intern</p>
-  <p class="name"> Name: ${allData[0].getName()}</p>
-  <p class="id">ID: ${allData[0].getId()}</p>
-  <p class="id">Email: ${allData[0].getEmail()}</p>
-  <p class="school">School: ${allData[0].getSchool()}</p>
-
-  <div class="square">
-  <p>Engineer</p>
-
-
-</div>
-
- 
-
+    ${generatedHtml}
   </body>
   </html>
 `;
