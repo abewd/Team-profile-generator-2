@@ -157,11 +157,13 @@ function printHtml() {
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
       <title>Document</title>
     </head>
     <body>
-    <div class="square">
+    <div class="container">
       ${generatedHTML}
       </div>
     </body>
@@ -176,28 +178,37 @@ function forFunction() {
     console.log(allData[i].getRole());
     // todo: create a function for generatedhtml
     if (allData[i].getRole() === "Engineer") {
-      generatedHTML += " <h1>  Engineer ⚙️ </h1>";
+      generatedHTML += '<div class = "card">';
+      generatedHTML += '<h5 class = "card-header">  Engineer ⚙️ </h5>';
+      generatedHTML +=
+        '\n <div class = "card-body"><div class = "card-title"> Name:' +
+        allData[i].name +
+        "</div> \n";
+      generatedHTML +=
+        '\n <div class = "card-text"> <p> ID:' + allData[i].id + "</p> \n";
+      generatedHTML += "\n <p> Email:" + allData[i].email + "</p> \n";
+      generatedHTML += "\n <p> GitHub:" + allData[i].github + "</p> \n";
+      generatedHTML += "</div> </div> </div>";
+    } else if (allData[i].getRole() === "Intern") {
+      generatedHTML += '<div class = "card">';
+      generatedHTML += " <h1>  Intern 🤵 </h1>";
       generatedHTML +=
         "\n <div class = name> Name:" + allData[i].name + "</div> \n";
       generatedHTML += "\n <p> ID:" + allData[i].id + "</p> \n";
       generatedHTML += "\n <p> Email:" + allData[i].email + "</p> \n";
-      generatedHTML += "\n <p> GitHub:" + allData[i].github + "</p> \n";
-    } else if (allData[i].getRole() === "Intern") {
-      generatedHTML += " <h1>  Intern 🤵 </h1>";
-
-      generatedHTML +=
-        "\n <div class = name> Name:" + allData[i].name + "</div> \n";
-      generatedHTML += "\n <p>" + allData[i].id + "</p> \n";
-      generatedHTML += "\n <p>" + allData[i].email + "</p> \n";
-      generatedHTML += "\n <p>" + allData[i].school + "</p> \n";
+      generatedHTML += "\n <p> School:" + allData[i].school + "</p> \n";
+      generatedHTML += "</div>";
+      generatedHTML += "</div>";
     } else if (allData[i].getRole() === "Manager") {
-      generatedHTML += " <h1>  Manager 👨‍💼 </h1>";
+      generatedHTML += '<div class = "card">';
+      generatedHTML += " <h1>  Manager 🕴️ </h1>";
 
       generatedHTML +=
         "\n <div class = name> Name:" + allData[i].name + "</div> \n";
-      generatedHTML += "\n <p>" + allData[i].id + "</p> \n";
-      generatedHTML += "\n <p>" + allData[i].email + "</p> \n";
-      generatedHTML += "\n <p>" + allData[i].school + "</p> \n";
+      generatedHTML += "\n <p> ID:" + allData[i].id + "</p> \n";
+      generatedHTML += "\n <p> Email:" + allData[i].email + "</p> \n";
+      generatedHTML += "\n <p> Office No:" + allData[i].school + "</p> \n";
+      generatedHTML += "</div>";
     }
   }
 

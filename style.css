@@ -1,4 +1,4 @@
-.square {
+/* .square {
   font-size: x-large;
   width: 500px;
   height: 500px;
@@ -20,4 +20,11 @@
 
 h1 {
   padding: 10px;
+}
+ */
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
