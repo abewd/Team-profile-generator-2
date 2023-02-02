@@ -74,7 +74,8 @@ function init() {
     } else if (inputResponses.role == "Employee") {
       askEmployeeQuestions();
     } else if (inputResponses.role === "none") {
-      generateHTML();
+      // change to generate html when done
+      forFunction();
     }
   });
 }
@@ -136,6 +137,14 @@ async function askEmployeeQuestions() {
   });
 }
 
+// install for code here
+
+function forFunction() {
+  for (let i = 0; i < allData.length; i++) {
+    console.log(allData[i]);
+  }
+}
+
 // module.exports = newTeam;
 function generateHTML() {
   console.log(allData);
@@ -166,7 +175,6 @@ function generateHTML() {
 
   <div class="square">
   <p>Engineer</p>
-  <p class="name"> Name: ${allData[1].getName()}</p>
 
 
 </div>
