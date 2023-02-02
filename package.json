@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "node index.js"
+    "start": "nodmon index.js --watch"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/abewd/Team-profile-generator-2#readme",
   "dependencies": {
-    "inquirer": "8.2.4"
+    "inquirer": "8.2.4",
+    "nodemon": "^2.0.20"
   },
   "devDependencies": {
     "jest": "^29.4.1"

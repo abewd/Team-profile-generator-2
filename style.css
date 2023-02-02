@@ -1,27 +1,23 @@
 .square {
-  width: 300px;
-  height: 300px;
-  border: 1px solid black;
-  text-align: center;
-  padding: 50px;
+  font-size: x-large;
+  width: 500px;
+  height: 500px;
+  border: 2px solid black;
+  padding: 10px;
+  background-color: rgb(240, 205, 170);
+  justify-content: center;
+  color: rgb(29, 1, 107);
 }
 
 .name {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 45px;
+  background-color: rgb(170, 170, 245);
+  width: 100%;
+  color: rgb(29, 1, 107);
+  justify-content: center;
+  text-align: center;
 }
 
-.position {
-  font-size: 18px;
-  font-style: italic;
-}
-
-.id {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.school {
-  font-size: 14px;
-  font-weight: bold;
+h1 {
+  padding: 10px;
 }

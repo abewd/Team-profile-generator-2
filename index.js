@@ -103,8 +103,8 @@ function askEngineerQuestions() {
       const myEngineer = new Engineer(
         inputResponses.id,
         inputResponses.employeeName,
-        inputResponses.github,
-        inputResponses.email
+        inputResponses.email,
+        inputResponses.github
       );
       allData.push(myEngineer);
       init();
@@ -140,6 +140,7 @@ async function askEmployeeQuestions() {
 // install for code here
 //
 var generatedHTML = "";
+
 function printHtml() {
   //   console.log(allData);
   //format data to render to html
@@ -152,14 +153,17 @@ function printHtml() {
     <!DOCTYPE html>
     <html lang="en">
     <head>
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
       <title>Document</title>
     </head>
     <body>
+    <div class="square">
       ${generatedHTML}
+      </div>
     </body>
     </html>
   `;
@@ -170,28 +174,37 @@ function printHtml() {
 function forFunction() {
   for (let i = 0; i < allData.length; i++) {
     console.log(allData[i].getRole());
-
+    // todo: create a function for generatedhtml
     if (allData[i].getRole() === "Engineer") {
-      generatedHTML += "<p>" + allData[i].name + "</p>";
-      (generatedHTML += "<p>"), allData[i].id, "</p>";
-      (generatedHTML += "<p>"), allData[i].email, "</p>";
-      (generatedHTML += "<p>"), allData[i].github, "</p>";
+      generatedHTML += " <h1>  Engineer ⚙️ </h1>";
+      generatedHTML +=
+        "\n <div class = name> Name:" + allData[i].name + "</div> \n";
+      generatedHTML += "\n <p> ID:" + allData[i].id + "</p> \n";
+      generatedHTML += "\n <p> Email:" + allData[i].email + "</p> \n";
+      generatedHTML += "\n <p> GitHub:" + allData[i].github + "</p> \n";
     } else if (allData[i].getRole() === "Intern") {
-      (generatedHTML += "<p>"), allData[i].name, "</p>";
-      (generatedHTML += "<p>"), allData[i].id, "</p>";
-      (generatedHTML += "<p>"), allData[i].email, "</p>";
-      (generatedHTML += "<p>"), allData[i].school, "</p>";
+      generatedHTML += " <h1>  Intern 🤵 </h1>";
+
+      generatedHTML +=
+        "\n <div class = name> Name:" + allData[i].name + "</div> \n";
+      generatedHTML += "\n <p>" + allData[i].id + "</p> \n";
+      generatedHTML += "\n <p>" + allData[i].email + "</p> \n";
+      generatedHTML += "\n <p>" + allData[i].school + "</p> \n";
     } else if (allData[i].getRole() === "Manager") {
-      (generatedHTML += "<p>"), allData[i].name, "</p>";
-      (generatedHTML += "<p>"), allData[i].id, "</p>";
-      (generatedHTML += "<p>"), allData[i].email, "</p>";
-      (generatedHTML += "<p>"), allData[i].school, "</p>";
+      generatedHTML += " <h1>  Manager 👨‍💼 </h1>";
+
+      generatedHTML +=
+        "\n <div class = name> Name:" + allData[i].name + "</div> \n";
+      generatedHTML += "\n <p>" + allData[i].id + "</p> \n";
+      generatedHTML += "\n <p>" + allData[i].email + "</p> \n";
+      generatedHTML += "\n <p>" + allData[i].school + "</p> \n";
     }
   }
 
   printHtml();
 }
-
+// function generatehtml
+// parameters will be data and it will return a <p></p> + allData.name[i]
 // module.exports = newTeam;
 
 init();
