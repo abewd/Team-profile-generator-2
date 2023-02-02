@@ -140,19 +140,38 @@ async function askEmployeeQuestions() {
 // install for code here
 //
 var generatedHtml = "";
+let output = [];
 function forFunction() {
   for (let i = 0; i < allData.length; i++) {
     console.log(allData[i].getRole());
 
     if (allData[i].getRole() === "Engineer") {
-      console.log(allData.getRole());
+      console.log("<p>", allData[i].name, "</p>");
+      console.log("<p>", allData[i].id, "</p>");
+      console.log("<p>", allData[i].email, "</p>");
+      console.log("<p>", allData[i].github, "</p>");
+    } else if (allData[i].getRole() === "Intern") {
+      console.log("<p>", allData[i].name, "</p>");
+      console.log("<p>", allData[i].id, "</p>");
+      console.log("<p>", allData[i].email, "</p>");
+      console.log("<p>", allData[i].school, "</p>");
+    } else if (allData[i].getRole() === "Manager") {
+      console.log("<p>", allData[i].name, "</p>");
+      console.log("<p>", allData[i].id, "</p>");
+      console.log("<p>", allData[i].email, "</p>");
+      console.log("<p>", allData[i].school, "</p>");
     }
+    let output = allData[i];
+    ouput.push(output);
+    console.log(output);
   }
+
+  generateHTML();
 }
 
 // module.exports = newTeam;
 function generateHTML() {
-  console.log(allData);
+  //   console.log(allData);
   //format data to render to html
   //insert data into html, then return that value
   //fs.writeFileSync, save as index.html
@@ -171,6 +190,7 @@ function generateHTML() {
   </head>
   <body>
     ${generatedHtml}
+    ${outputs}
   </body>
   </html>
 `;
