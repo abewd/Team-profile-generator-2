@@ -139,38 +139,8 @@ async function askEmployeeQuestions() {
 
 // install for code here
 //
-var generatedHtml = "";
-let output = [];
-function forFunction() {
-  for (let i = 0; i < allData.length; i++) {
-    console.log(allData[i].getRole());
-
-    if (allData[i].getRole() === "Engineer") {
-      console.log("<p>", allData[i].name, "</p>");
-      console.log("<p>", allData[i].id, "</p>");
-      console.log("<p>", allData[i].email, "</p>");
-      console.log("<p>", allData[i].github, "</p>");
-    } else if (allData[i].getRole() === "Intern") {
-      console.log("<p>", allData[i].name, "</p>");
-      console.log("<p>", allData[i].id, "</p>");
-      console.log("<p>", allData[i].email, "</p>");
-      console.log("<p>", allData[i].school, "</p>");
-    } else if (allData[i].getRole() === "Manager") {
-      console.log("<p>", allData[i].name, "</p>");
-      console.log("<p>", allData[i].id, "</p>");
-      console.log("<p>", allData[i].email, "</p>");
-      console.log("<p>", allData[i].school, "</p>");
-    }
-    let output = allData[i];
-    ouput.push(output);
-    console.log(output);
-  }
-
-  generateHTML();
-}
-
-// module.exports = newTeam;
-function generateHTML() {
+var generatedHTML = "";
+function printHtml() {
   //   console.log(allData);
   //format data to render to html
   //insert data into html, then return that value
@@ -179,23 +149,49 @@ function generateHTML() {
   // Print the answers into a HTML file which you can deploy
 
   const html = `
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-  <link rel="stylesheet" type="text/css" href="/style.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
-  <body>
-    ${generatedHtml}
-    ${outputs}
-  </body>
-  </html>
-`;
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+    </head>
+    <body>
+      ${generatedHTML}
+    </body>
+    </html>
+  `;
 
   fs.writeFileSync("answers.html", html);
   console.log("HTML file generated successfully.");
 }
+function forFunction() {
+  for (let i = 0; i < allData.length; i++) {
+    console.log(allData[i].getRole());
+
+    if (allData[i].getRole() === "Engineer") {
+      generatedHTML += "<p>" + allData[i].name + "</p>";
+      (generatedHTML += "<p>"), allData[i].id, "</p>";
+      (generatedHTML += "<p>"), allData[i].email, "</p>";
+      (generatedHTML += "<p>"), allData[i].github, "</p>";
+    } else if (allData[i].getRole() === "Intern") {
+      (generatedHTML += "<p>"), allData[i].name, "</p>";
+      (generatedHTML += "<p>"), allData[i].id, "</p>";
+      (generatedHTML += "<p>"), allData[i].email, "</p>";
+      (generatedHTML += "<p>"), allData[i].school, "</p>";
+    } else if (allData[i].getRole() === "Manager") {
+      (generatedHTML += "<p>"), allData[i].name, "</p>";
+      (generatedHTML += "<p>"), allData[i].id, "</p>";
+      (generatedHTML += "<p>"), allData[i].email, "</p>";
+      (generatedHTML += "<p>"), allData[i].school, "</p>";
+    }
+  }
+
+  printHtml();
+}
+
+// module.exports = newTeam;
+
 init();
