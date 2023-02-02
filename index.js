@@ -1,3 +1,4 @@
+// Initialising constructors and their paths
 const inquirer = require("inquirer");
 const fs = require("fs");
 const path = require("path");
@@ -7,11 +8,10 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
-const html = require("./dist/index");
-// const myTeam = require("./dist/index.js")
-// let newTeam = "data"
+// Allow this array to contain all the input data from the questions
 let allData = [];
 
+// Assign questions through prompt
 let choiceQuestion = [
   {
     type: "list",
@@ -39,8 +39,7 @@ let employeeQuestions = [
   },
 ];
 
-//additional role questions
-
+// Additional role questions such as engineer, intern and manager
 let managerQuestions = [
   {
     type: "input",
@@ -80,6 +79,7 @@ function init() {
   });
 }
 
+// Function for the intern to ask the questions and store the reults and push them to the allData array
 function askInternQuestions() {
   inquirer
     .prompt([...employeeQuestions, ...internQuestions])
@@ -95,6 +95,7 @@ function askInternQuestions() {
     });
 }
 
+// Function for the engineer to ask the questions and store the reults and push them to the allData array
 function askEngineerQuestions() {
   inquirer
     .prompt([...employeeQuestions, ...engineerQuestions])
@@ -110,6 +111,8 @@ function askEngineerQuestions() {
       init();
     });
 }
+
+// Function for the manager to ask the questions and store the reults and push them to the allData array
 function askManagerQuestions() {
   inquirer
     .prompt([...employeeQuestions, ...managerQuestions])
@@ -125,6 +128,8 @@ function askManagerQuestions() {
       init();
     });
 }
+
+// Function for the employee to ask the questions and store the reults and push them to the allData array
 async function askEmployeeQuestions() {
   await inquirer.prompt(employeeQuestions).then((inputResponses) => {
     const myEmployee = new Employee(
@@ -137,8 +142,6 @@ async function askEmployeeQuestions() {
   });
 }
 
-// install for code here
-//
 var generatedHTML = "";
 
 function printHtml() {
@@ -147,13 +150,13 @@ function printHtml() {
   //insert data into html, then return that value
   //fs.writeFileSync, save as index.html
 
-  // Print the answers into a HTML file which you can deploy
+  // Print the answers into a HTML file which you can deploy, but put it into dist as per readme.md files
 
   const html = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css" />
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -174,13 +177,15 @@ function printHtml() {
     </html>
   `;
 
-  fs.writeFileSync("answers.html", html);
+  // Save file to the /dist folder
+  fs.writeFileSync("dist/answers.html", html);
   console.log("HTML file generated successfully.");
 }
+
+// initiate function to create a loop within a function to generate cards to display in the html file
 function forFunction() {
   for (let i = 0; i < allData.length; i++) {
     console.log(allData[i].getRole());
-    // todo: create a function for generatedhtml
     if (allData[i].getRole() === "Engineer") {
       generatedHTML += '<div class = "card">';
       generatedHTML += '<h5 class = "card-header">  Engineer ⚙️ </h5>';
@@ -220,11 +225,8 @@ function forFunction() {
       generatedHTML += "</div> </div> </div>";
     }
   }
-
+  // initiate function and print it
   printHtml();
 }
-// function generatehtml
-// parameters will be data and it will return a <p></p> + allData.name[i]
-// module.exports = newTeam;
-
+// yaknow, init...
 init();
